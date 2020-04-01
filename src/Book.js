@@ -18,7 +18,7 @@ class Book extends Component {
     // }
 
     async componentDidMount() {
-        console.log(this.props.match.params.book)
+
         const isbn = this.props.match.params.book;
 
         let book = await BooklyApi.getBook(isbn);
@@ -26,7 +26,7 @@ class Book extends Component {
     }
 
     render() {
-        console.log(this.state.book)
+
         return (
             <Card border="primary" style={{ width: '18rem' }}>
 

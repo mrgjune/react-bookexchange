@@ -6,11 +6,10 @@ class BookCard extends Component {
     render() {
 
         const { isbn, author, title } = this.props.book;
+        console.log(this.props, "Sfds")
         return (
-
             <Link className="Card card" to={`/books/${isbn}`}>
                 <div className="card-body">
-
                     <h6 className="card-title d-flex justify-content-between">
                         <span className="text-capitalize">{title}</span>
                     </h6>
@@ -18,11 +17,6 @@ class BookCard extends Component {
 
                 </div>
             </Link>
-
-
-
-
-
         );
     }
 

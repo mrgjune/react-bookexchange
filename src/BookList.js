@@ -9,42 +9,31 @@ import BookCard from "./BookCard";
 
 
 class BookList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            books: []
-        };
-        this.filterBooks = this.filterBooks.bind(this);
-    }
 
-
-
-    async componentDidMount() {
-        const books = await BooklyApi.getBooks();
-        this.setState({ books });
-    }
-    /** sets the state for the filtered list of companies based on search terms */
-    filterBooks(books) {
-        this.setState({ books });
-    }
 
     render() {
+        console.log(this.props.books, "BOKS")
+        if (!this.props.books) {
+            return <div></div>
+        }
         // const currUser = this.context;
 
-        let books = this.state.books.map(book =>
+        let books = this.props.books.map(book =>
             <div key={book.isbn} className="Book" to={`/books/${book.isbn}`}>
                 <BookCard
                     book={book} />
             </div>
         );
 
-        // if (Object.keys(currUser).length !== 0) {
-        //     if (this.state.isLoading) {
-        //         return <p>Loading......</p>
-        //     }
+        if (books.length === 0) {
+
+
+            return (<p className="lead">Sorry, no results were found!</p>)
+
+        }
         return (
+
             <div>
-                {/* <Search search="company" filterCo={this.filterBooks} /> */}
                 {books}
             </div>
         );

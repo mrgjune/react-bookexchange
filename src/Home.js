@@ -14,6 +14,7 @@ class Home extends Component {
                 WELCOME!!!
             </div>
         );
+
     }
 }
 

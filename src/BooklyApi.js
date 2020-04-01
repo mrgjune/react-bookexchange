@@ -15,7 +15,7 @@ class JoblyApi {
 
         if (verb === "get") {
             q = axios.get(
-                `${BASE_URL}/${endpoint}`, { _token, ...params });
+                `${BASE_URL}/${endpoint}`, { params });
         } else if (verb === "post") {
             q = axios.post(
                 `${BASE_URL}/${endpoint}`, { _token, ...params });
@@ -33,14 +33,20 @@ class JoblyApi {
         }
     }
 
-    static async getBooks(searchTerm, seachCategory) {
-        let param;
-        if (seachCategory === 'title') {
-            param = { "title": searchTerm }
+
+    static async getBooks(searchTerm, searchCategory) {
+        let search;
+        if (searchCategory === 'title') {
+            search = { title: searchTerm }
         }
-        console.log(param)
-        let res = await this.request('books', { param });
-        console.log(res);
+        else if (searchCategory === 'subject') {
+            search = { subject: searchTerm }
+        }
+        else if (searchCategory === 'author') {
+            search = { author: searchTerm }
+        }
+
+        let res = await this.request('books', search);
         return res.books;
     }
 
