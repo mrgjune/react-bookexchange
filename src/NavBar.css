@@ -1,8 +1,8 @@
 .nav-item a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .nav-item a.active {
-    text-decoration: none;
-  }
+  color: white;
+  text-decoration: none;
+}
+
+.nav-item a.active {
+  text-decoration: none;
+}

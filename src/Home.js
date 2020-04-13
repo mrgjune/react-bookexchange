@@ -8,11 +8,15 @@ class Home extends Component {
     //   static contextType = UserContext;
 
     render() {
+
         // const currentUser = this.context;
         return (
-            <div className="Home">
-                WELCOME!!!
+            <div >
+
+                <h2>Welcome  </h2>
             </div>
+
+
         );
 
     }
