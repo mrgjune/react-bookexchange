@@ -2,88 +2,83 @@ import axios from "axios";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
 const _token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yZ2p1bmUiLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU4MjgzMDUyOX0.2XMLYXjh27PNry06pGi7XAXrCk2H33jArSdrPLYXRCw"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yZ2p1bmUiLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU4MjgzMDUyOX0.2XMLYXjh27PNry06pGi7XAXrCk2H33jArSdrPLYXRCw";
 
-class JoblyApi {
-    static async request(endpoint, params = {}, verb = "get") {
-        // for now, hardcode a token for user "testuser"
-        // let _token = localStorage.getItem("jobly-token");
+class BooklyApi {
+  static async request(endpoint, params = {}, verb = "get") {
+    // for now, hardcode a token for user "testuser"
+    // let _token = localStorage.getItem("jobly-token");
 
-        console.debug("API Call:", endpoint, params, verb);
+    console.debug("API Call:", endpoint, params, verb);
 
-        let q;
+    let q;
 
-        if (verb === "get") {
-            q = axios.get(
-                `${BASE_URL}/${endpoint}`, { params });
-        } else if (verb === "post") {
-            q = axios.post(
-                `${BASE_URL}/${endpoint}`, { _token, ...params });
-        } else if (verb === "patch") {
-            q = axios.patch(
-                `${BASE_URL}/${endpoint}`, { _token, ...params });
-        }
-
-        try {
-            return (await q).data;
-        } catch (err) {
-            console.error("API Error:", err.response);
-            let message = err.response.data.message;
-            throw Array.isArray(message) ? message : [message];
-        }
+    if (verb === "get") {
+      q = axios.get(`${BASE_URL}/${endpoint}`, { params });
+    } else if (verb === "post") {
+      q = axios.post(`${BASE_URL}/${endpoint}`, { _token, ...params });
+    } else if (verb === "patch") {
+      q = axios.patch(`${BASE_URL}/${endpoint}`, { _token, ...params });
     }
 
-
-    static async getBooks(searchTerm, searchCategory) {
-        let search;
-        if (searchCategory === 'title') {
-            search = { title: searchTerm }
-        }
-        else if (searchCategory === 'subject') {
-            search = { subject: searchTerm }
-        }
-        else if (searchCategory === 'author') {
-            search = { author: searchTerm }
-        }
-
-        let res = await this.request('books', search);
-        return res.books;
+    try {
+      return (await q).data;
+    } catch (err) {
+      console.error("API Error:", err.response);
+      let message = err.response.data.message;
+      throw Array.isArray(message) ? message : [message];
     }
+  }
 
-    static async getBook(isbn) {
-        let res = await this.request(`books/${isbn}`);
-        return res.book;
+  static async getBooks(searchTerm, searchCategory) {
+    let search;
+    console.log(searchTerm, searchCategory);
+    if (searchCategory === "title") {
+      search = { title: searchTerm };
+    } else if (searchCategory === "subject") {
+      search = { subject: searchTerm };
+    } else if (searchCategory === "author") {
+      search = { author: searchTerm };
+    } else if (searchCategory === "school") {
+      search = { school_handle: searchTerm };
     }
+    let res = await this.request("books", search);
+    return res.books;
+  }
 
-    //   static async getJobs(search) {
-    //     let res = await this.request("jobs", { search });
-    //     return res.jobs;
-    //   }
+  static async getBook(isbn) {
+    let res = await this.request(`books/${isbn}`);
+    return res.book;
+  }
 
-    //   static async applyToJob(id) {
-    //     let res = await this.request(`jobs/${id}/apply`, {}, "post");
-    //     return res.message;
-    //   }
+  //   static async getJobs(search) {
+  //     let res = await this.request("jobs", { search });
+  //     return res.jobs;
+  //   }
 
-    //   static async login(data) {
-    //     let res = await this.request(`login`, data, "post");
-    //     return res.token;
-    //   }
+  //   static async applyToJob(id) {
+  //     let res = await this.request(`jobs/${id}/apply`, {}, "post");
+  //     return res.message;
+  //   }
 
-    //   static async register(data) {
-    //     let res = await this.request(`users`, data, "post");
-    //     return res.token;
-    //   }
+  //   static async login(data) {
+  //     let res = await this.request(`login`, data, "post");
+  //     return res.token;
+  //   }
 
-    //   static async getCurrentUser(username) {
-    //     let res = await this.request(`users/${username}`);
-    //     return res.user;
-    //   }
+  //   static async register(data) {
+  //     let res = await this.request(`users`, data, "post");
+  //     return res.token;
+  //   }
 
-    //   static async saveProfile(username, data) {
-    //     await this.request(`users/${username}`, data, "patch");
-    //   }
+  //   static async getCurrentUser(username) {
+  //     let res = await this.request(`users/${username}`);
+  //     return res.user;
+  //   }
+
+  //   static async saveProfile(username, data) {
+  //     await this.request(`users/${username}`, data, "patch");
+  //   }
 }
 
-
-export default JoblyApi;
+export default BooklyApi;

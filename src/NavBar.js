@@ -9,12 +9,11 @@ class Navigation extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Navbar.Brand href="#home">New York Six Book Exchange</Navbar.Brand>
+            <Navbar.Brand href="/">New York Six Book Exchange</Navbar.Brand>
           </Nav>
           <Nav>
-            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="books">Books</Nav.Link>
-            <Nav.Link href="link">My Account</Nav.Link>
+            <Nav.Link href="/">About the Project</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
