@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-
+import "./image.css";
 import BooklyApi from "./BooklyApi";
-import { Card, Button } from "react-bootstrap";
+import { Container, Button, Row, Col, Card } from "react-bootstrap";
 import CheckOutForm from "./checkOutForm";
 class Book extends Component {
   constructor(props) {
@@ -25,15 +25,15 @@ class Book extends Component {
   }
 
   render() {
+    console.log(this.state.book.book_image, "Sfs");
     let displayForm;
     if (this.state.displayForm) {
-      console.log("hello");
       displayForm = <CheckOutForm />;
     }
 
-    console.log(this.state.book);
     let available;
-    let image = `images/${this.state.book.book_image}`;
+
+    let image = `/images/${this.state.book.book_image}`;
     if (this.state.book.available) {
       available = <div>Available</div>;
     } else {
@@ -41,21 +41,32 @@ class Book extends Component {
     }
 
     return (
-      <div>
-        <Card border="primary" style={{ width: "18rem" }}>
-          <Card.Body>
-            <Card.Img src={image}></Card.Img>
-            <Card.Title>{this.state.book.title}</Card.Title>
-            <Card.Text>Author: {this.state.book.author}</Card.Text>
-            <Card.Text>Subject: {this.state.book.subject_type}</Card.Text>
-            <Card.Text>Isbn: {this.state.book.isbn}</Card.Text>
-            <Card.Text>{available}</Card.Text>
-            <Card.Text>School: {this.state.book.school_handle}</Card.Text>
-            <Button onClick={this.displayForm}>Request Book</Button>
-          </Card.Body>
-        </Card>
+      <Container>
+        <Row>
+          <Col xs={2}>
+            <Card.Img className="pt-3" src={image} />
+          </Col>
+          <Col xs={9}>
+            <Card.Body>
+              <Card.Title>{this.state.book.title}</Card.Title>
+              <Card.Text>Author: {this.state.book.author}</Card.Text>
+              {/* <Card.Text>Copyright Year: {this.state.books.copyright_year}</Card.Text> */}
+              <Card.Text>Subject: {this.state.book.subject_type}</Card.Text>
+              <Card.Text>Isbn: {this.state.book.isbn}</Card.Text>
+              <Card.Text>{available}</Card.Text>
+              <Card.Text>School: {this.state.book.school_handle}</Card.Text>
+              <Button onClick={this.displayForm}>Request Book</Button>
+            </Card.Body>
+          </Col>
+          <Col></Col>
+        </Row>
         {displayForm}
-      </div>
+      </Container>
+
+      // <Card.Body>
+
+      // // </Card.Body>
+      // {/* </Card> */}
     );
   }
 }

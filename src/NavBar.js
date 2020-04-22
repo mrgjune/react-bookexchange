@@ -1,19 +1,30 @@
 import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import "./NavBar.css";
+import SearchBar from "./SearchBar";
 
 class Navigation extends Component {
   render() {
     return (
-      <Navbar expand="lg" bg="dark" variant="dark">
+      <Navbar expand="lg">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Navbar.Brand href="/">New York Six Book Exchange</Navbar.Brand>
+            <Navbar.Brand
+              expan="lg"
+              style={{ color: "black", fontWeight: "bold" }}
+              href="/"
+            >
+              New York Six
+            </Navbar.Brand>
+            <Navbar.Brand
+              style={{ color: "green", fontWeight: "bold" }}
+              href="/"
+            >
+              Book Exchange
+            </Navbar.Brand>
           </Nav>
           <Nav>
-            <Nav.Link href="books">Books</Nav.Link>
-            <Nav.Link href="/">About the Project</Nav.Link>
+            <SearchBar />
           </Nav>
         </Navbar.Collapse>
       </Navbar>

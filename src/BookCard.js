@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import "./Card.scss";
-//import Img from "react-image";
+import "./image.css";
+import "./Card.scss";
 
 class BookCard extends Component {
   render() {
@@ -15,44 +15,47 @@ class BookCard extends Component {
       description,
     } = this.props.book;
     let a;
-    let image = `images/${this.props.book.book_image}`;
+    console.log(this.props.book.book_image);
+    let image = `http://localhost:3001/images/${this.props.book.book_image}`;
+    console.log(image);
     if (available) {
-      a = <div> Avaialbe </div>;
+      a = "Avaialbe";
     }
     return (
-      <Card>
-        <Card.Img variant="top" src={image} />
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            Author: {author}
-          </Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">
-            Publishers: {publisher}
-          </Card.Subtitle>
-          <Card.Text>{description}</Card.Text>
-        </Card.Body>
-        <Card.Link href={`/books/${isbn}`}> More Details</Card.Link>
-      </Card>
+      <div className="pt-5">
+        <Container>
+          <Row>
+            <Col xs={2}>
+              <Card.Img className="pt-3" src={image} />
+            </Col>
+            <Col xs={9}>
+              <Card.Body>
+                <Card.Title>{title}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  Author: {author}
+                </Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">
+                  Publishers: {publisher}
+                </Card.Subtitle>
+                <Card.Text>{description}</Card.Text>
+                {/* <Card.Text style={{ color: "green" }}> {a}</Card.Text> */}
 
-      // <Link className="Card card" to={`/books/${isbn}`}>
-      //   <div className="card-body">
-      //     <h6 className="card-title d-flex justify-content-between">
-      //       <span className="text-capitalize">{title}</span>
-      //     </h6>
-      //     <img src={image} alt="textbookimage" />
-      //     <h6>
-      //       <span className="text-capitalize">Authors: {author}</span>
-      //     </h6>
-      //     <h6>
-      //       <span className="text-capitalize">Publishers: {publisher}</span>
-      //     </h6>
-      //     <h6>
-      //       <span className="text-capitalize"> {description}</span>
-      //     </h6>
-      //     <span className="text-capitalize">{a}</span>
-      //   </div>
-      // </Link>
+                <Card.Link
+                  style={{
+                    border: "danger",
+                    color: "white",
+                    background: "red",
+                  }}
+                  href={`/books/${isbn}`}
+                >
+                  More Details
+                </Card.Link>
+              </Card.Body>
+            </Col>
+            <Col></Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

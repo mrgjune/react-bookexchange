@@ -30,19 +30,18 @@ class BooklyApi {
     }
   }
 
-  static async getBooks(searchTerm, searchCategory) {
-    let search;
-    console.log(searchTerm, searchCategory);
-    if (searchCategory === "title") {
-      search = { title: searchTerm };
-    } else if (searchCategory === "subject") {
-      search = { subject: searchTerm };
-    } else if (searchCategory === "author") {
-      search = { author: searchTerm };
-    } else if (searchCategory === "school") {
-      search = { school_handle: searchTerm };
+  static async getBooks(searchTerm, searchCategory, school) {
+    let parameters = {};
+    parameters.school_handle = school;
+    if (searchCategory === "Title") {
+      parameters.title = searchTerm;
+    } else if (searchCategory === "Subject") {
+      parameters.subject = searchTerm;
+    } else if (searchCategory === "Author") {
+      parameters.author = searchTerm;
     }
-    let res = await this.request("books", search);
+    let res = await this.request("books", parameters);
+
     return res.books;
   }
 

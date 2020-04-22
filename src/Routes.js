@@ -1,28 +1,35 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Books from "./Books";
+import BookList from "./BookList";
 import Book from "./Book";
 import Home from "./Home";
-
+import DisplaySearch from "./DisplaySearch";
+import Navigation from "./NavBar";
 
 class Routes extends Component {
-    render() {
-        //const { getCurrentUser } = this.props;
+  render() {
+    //const { getCurrentUser } = this.props;
 
-        return (
-            <div className="pt-5">
-                <BrowserRouter >
-                    <Switch>
-                        <Route exact path="/" render={() => <Home />} />
-                        <Route exact path="/books" render={() => <Books />} />
-                        <Route exact path="/books/:book" render={rtProps => <Book {...rtProps} />} />
-                    </Switch>
-                </BrowserRouter>
-            </div>
-        );
-    }
+    return (
+      <BrowserRouter>
+        <Navigation />
+        <Switch>
+          <Route exact path="/" render={() => <Home />} />
+          <Route
+            exact
+            path="/search/:searchCategory/:searchTerm/:school"
+            render={(rtProps) => <DisplaySearch {...rtProps} />}
+          />
+          <Route exact path="/books" render={() => <BookList />} />
+          <Route
+            exact
+            path="/books/:book"
+            render={(rtProps) => <Book {...rtProps} />}
+          />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
-
-
 
 export default Routes;

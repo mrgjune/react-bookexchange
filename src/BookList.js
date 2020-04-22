@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import BooklyApi from "./BooklyApi";
+import { Container, Row } from "react-bootstrap";
 import BookCard from "./BookCard";
 // import Search from "./Search";
 // import "./CompanyList.scss";
@@ -8,7 +7,6 @@ import BookCard from "./BookCard";
 class BookList extends Component {
   render() {
     if (!this.props.books) {
-      console.log("hello");
       return <div></div>;
     }
     // const currUser = this.context;
