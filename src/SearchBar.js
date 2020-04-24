@@ -19,8 +19,7 @@ class SearchBar extends Component {
       searchCategory: "Title",
       searchTerm: "",
       books: null,
-      categorySelected: false,
-      searchType: "subject",
+      searchType: "Select Subject",
       school: "All Schools",
     };
 
@@ -28,99 +27,89 @@ class SearchBar extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.dropDownCateogry = this.dropDownCateogry.bind(this);
     this.dropDownSchool = this.dropDownSchool.bind(this);
-    // this.dropDownSelector = this.dropDownSelector(this);
+    this.dropDownSubject = this.dropDownSubject.bind(this);
+    this.sendParams = this.sendParams.bind(this);
   }
-  async handleSubmit(evt) {
+  handleSubmit(evt) {
     evt.preventDefault();
-    let url = generatePath(
-      "/search/:searchCategory/:searchTerm/:school",
-      this.state
-    );
-    this.props.history.push(url);
-
-    // let books = await BooklyApi.getBooks(
-    //   this.state.searchTerm,
-    //   this.state.searchCategory,
-    //   this.state.school
-    // );
-    // this.setState({ books })
+    this.sendParams();
   }
-  //   handleSubmit(evt) {
-  //     evt.preventDefault();
-  // this.getBooks();
 
-  //   async getBooks(eventKey) {
-  //     let searchTerm = this.state.searchTerm;
-  //     if (eventKey) {
-  //       searchTerm = eventKey;
-  //     }
-  //     let books = await BooklyApi.getBooks(searchTerm, this.state.searchCategory);
-  //     console.log(books);
-  //     this.setState({ books });
-  //   }
+  sendParams(subject) {
+    console.log(subject, "here");
+    let url;
 
+    if (!this.state.searchTerm) {
+      url = generatePath("/search/:searchCategory/:school", this.state);
+    } else {
+      url = generatePath(
+        "/search/:searchCategory/:school/:searchTerm",
+        this.state
+      );
+    }
+    this.props.history.push(url);
+  }
   dropDownCateogry(eventKey) {
     this.setState({ searchCategory: eventKey });
-    this.setState({ categorySelected: true });
   }
   dropDownSchool(eventKey) {
     this.setState({ school: eventKey });
   }
-  //   dropDownSelector(eventKey) {
-  //     this.setState({ searchType: eventKey });
-  //     // this.getBooks(eventKey);
-  //   }
+  dropDownSubject(eventKey) {
+    this.setState({ searchType: eventKey });
+    this.sendParams(eventKey);
+  }
 
   handleChange(e) {
+    console.log(e);
     this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
     let search;
-    // if (this.state.searchCategory === "Subject") {
-    //   console.log("got here");
-    //   search = (
-    //     <div>
-    //       <Form.Group controlId="exampleForm.SelectCustomSizeSm">
-    //         <Row className="justify-content-lg-center">
-    //           <Col xs={2.5}></Col>
-    //           <Col xs={1}>
-    //             <DropdownButton
-    //               variant="secondary"
-    //               onSelect={this.dropDownSelector}
-    //               title={this.state.searchType}
-    //               value={this.state.searchType}
-    //               id="dropdown-basic-button"
-    //             >
-    //               <Dropdown.Item eventKey="Chem">Chemistry</Dropdown.Item>
-    //               <Dropdown.Item eventKey="business">Business</Dropdown.Item>
-    //               <Dropdown.Item eventKey="Computer Science">
-    //                 {" "}
-    //                 Computer Science{" "}
-    //               </Dropdown.Item>
-    //             </DropdownButton>
-    //           </Col>
-    //         </Row>
-    //       </Form.Group>
-    //     </div>
-    //   );
-    // } else {
-    search = (
-      <Form inline onSubmit={this.handleSubmit}>
-        <FormControl
-          type="text"
-          placeholder="Search"
-          className="mr-sm-2"
-          name="searchTerm"
-          value={this.state.searchTerm}
-          title={this.state.searchTerm}
-          onChange={this.handleChange}
-        />
-        <Button type="submit" variant="outline-success">
-          Search
-        </Button>
-      </Form>
-    );
+    if (this.state.searchCategory === "Subject") {
+      console.log("got here");
+      search = (
+        <Form.Group
+          inline
+          onSubmit={this.handleSubmit}
+          controlId="exampleForm.SelectCustomSizeSm"
+        >
+          <DropdownButton
+            variant="outline-secondary"
+            className="pt-3"
+            onSelect={this.dropDownSubject}
+            title={this.state.searchType}
+            value={this.state.searchType}
+            id="dropdown-basic-button"
+          >
+            <Dropdown.Item eventKey="Chemistry">Chemistry</Dropdown.Item>
+            <Dropdown.Item eventKey="Business">Business</Dropdown.Item>
+            <Dropdown.Item eventKey="Computer Science">
+              Computer Science
+            </Dropdown.Item>
+          </DropdownButton>
+        </Form.Group>
+      );
+    } else {
+      search = (
+        <Form inline onSubmit={this.handleSubmit}>
+          <FormControl
+            type="text"
+            placeholder="Search"
+            className="mr-sm-2"
+            name="searchTerm"
+            value={this.state.searchTerm}
+            title={this.state.searchTerm}
+            onChange={this.handleChange}
+          />
+          <Button type="submit" variant="outline-success">
+            Search
+          </Button>
+        </Form>
+      );
+    }
+
     return (
       <Container fluid>
         <Row className="justify-content-lg-right">

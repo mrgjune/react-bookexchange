@@ -31,6 +31,7 @@ class BooklyApi {
   }
 
   static async getBooks(searchTerm, searchCategory, school) {
+    let res;
     let parameters = {};
     parameters.school_handle = school;
     if (searchCategory === "Title") {
@@ -40,7 +41,8 @@ class BooklyApi {
     } else if (searchCategory === "Author") {
       parameters.author = searchTerm;
     }
-    let res = await this.request("books", parameters);
+    console.log(parameters);
+    res = await this.request("books", parameters);
 
     return res.books;
   }

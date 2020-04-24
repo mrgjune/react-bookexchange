@@ -17,7 +17,12 @@ class Routes extends Component {
           <Route exact path="/" render={() => <Home />} />
           <Route
             exact
-            path="/search/:searchCategory/:searchTerm/:school"
+            path="/search/:searchCategory/:school"
+            render={(rtProps) => <DisplaySearch {...rtProps} />}
+          />
+          <Route
+            exact
+            path="/search/:searchCategory/:school/:searchTerm"
             render={(rtProps) => <DisplaySearch {...rtProps} />}
           />
           <Route exact path="/books" render={() => <BookList />} />

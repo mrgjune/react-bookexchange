@@ -10,7 +10,7 @@ class Home extends Component {
   render() {
     // const currentUser = this.context;
     return (
-      <Container>
+      <Container className="pt-5">
         <Row className="justify-content-md-center">
           <h2>Welcome To the New York Six Book Exchange </h2>
         </Row>
