@@ -8,8 +8,6 @@ import Navigation from "./NavBar";
 
 class Routes extends Component {
   render() {
-    //const { getCurrentUser } = this.props;
-
     return (
       <BrowserRouter>
         <Navigation />

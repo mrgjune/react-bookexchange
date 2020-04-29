@@ -1,8 +1,6 @@
 import axios from "axios";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
-const _token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1yZ2p1bmUiLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU4MjgzMDUyOX0.2XMLYXjh27PNry06pGi7XAXrCk2H33jArSdrPLYXRCw";
 
 class BooklyApi {
   static async request(endpoint, params = {}, verb = "get") {
@@ -16,9 +14,7 @@ class BooklyApi {
     if (verb === "get") {
       q = axios.get(`${BASE_URL}/${endpoint}`, { params });
     } else if (verb === "post") {
-      q = axios.post(`${BASE_URL}/${endpoint}`, { _token, ...params });
-    } else if (verb === "patch") {
-      q = axios.patch(`${BASE_URL}/${endpoint}`, { _token, ...params });
+      q = axios.post(`${BASE_URL}/${endpoint}`, { ...params });
     }
 
     try {
@@ -31,6 +27,7 @@ class BooklyApi {
   }
 
   static async getBooks(searchTerm, searchCategory, school) {
+    console.log(searchTerm, searchCategory, "Zsda");
     let res;
     let parameters = {};
     parameters.school_handle = school;
@@ -52,34 +49,15 @@ class BooklyApi {
     return res.book;
   }
 
-  //   static async getJobs(search) {
-  //     let res = await this.request("jobs", { search });
-  //     return res.jobs;
-  //   }
+  static async sendRequest(data) {
+    let res = await this.request(`requests`, data, "post");
+    return res.data;
+  }
+  static async getRequests() {
+    let res = await this.request(`requests`);
 
-  //   static async applyToJob(id) {
-  //     let res = await this.request(`jobs/${id}/apply`, {}, "post");
-  //     return res.message;
-  //   }
-
-  //   static async login(data) {
-  //     let res = await this.request(`login`, data, "post");
-  //     return res.token;
-  //   }
-
-  //   static async register(data) {
-  //     let res = await this.request(`users`, data, "post");
-  //     return res.token;
-  //   }
-
-  //   static async getCurrentUser(username) {
-  //     let res = await this.request(`users/${username}`);
-  //     return res.user;
-  //   }
-
-  //   static async saveProfile(username, data) {
-  //     await this.request(`users/${username}`, data, "patch");
-  //   }
+    return res.requests;
+  }
 }
 
 export default BooklyApi;

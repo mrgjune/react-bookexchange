@@ -23,7 +23,6 @@ class DisplaySearch extends Component {
     });
   }
   componentDidUpdate() {
-    console.log(this.props.match.params, this.state);
     if (
       this.props.match.params.searchTerm !== this.state.searchTerm ||
       this.props.match.params.searchCategory !== this.state.searchCategory ||

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Container, Button, Row, Col, Link } from "react-bootstrap";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import "./Card.scss";
 import "./image.css";
 import "./Card.scss";
@@ -16,10 +16,7 @@ class BookCard extends Component {
     } = this.props.book;
     let a;
     let image = `http://localhost:3001/images/${this.props.book.book_image}`;
-    console.log(image);
-    if (available) {
-      a = "Avaialbe";
-    }
+
     return (
       <div className="pt-5">
         <Container>
@@ -37,9 +34,7 @@ class BookCard extends Component {
                   Publishers: {publisher}
                 </Card.Subtitle>
                 <Card.Text>{description}</Card.Text>
-                {/* <Card.Text style={{ color: "green" }}> {a}</Card.Text> */}
-
-                <a class="btn btn-primary mt-3" href={`/books/${isbn}`}>
+                <a className="btn btn-primary mt-3" href={`/books/${isbn}`}>
                   More Details
                 </a>
               </Card.Body>

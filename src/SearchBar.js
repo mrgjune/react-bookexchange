@@ -36,9 +36,8 @@ class SearchBar extends Component {
   }
 
   sendParams(subject) {
-    console.log(subject, "here");
     let url;
-
+    console.log(this.state);
     if (!this.state.searchTerm) {
       url = generatePath("/search/:searchCategory/:school", this.state);
     } else {
@@ -57,56 +56,50 @@ class SearchBar extends Component {
   }
   dropDownSubject(eventKey) {
     this.setState({ searchType: eventKey });
-    this.sendParams(eventKey);
+    this.setState({ searchTerm: eventKey });
   }
 
   handleChange(e) {
-    console.log(e);
     this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
     let search;
     if (this.state.searchCategory === "Subject") {
-      console.log("got here");
       search = (
-        <Form.Group
-          inline
-          onSubmit={this.handleSubmit}
-          controlId="exampleForm.SelectCustomSizeSm"
-        >
-          <DropdownButton
-            variant="outline-secondary"
-            className="pt-3"
-            onSelect={this.dropDownSubject}
-            title={this.state.searchType}
-            value={this.state.searchType}
-            id="dropdown-basic-button"
+        <Col className="pb-3">
+          <Form.Group
+            onSubmit={this.handleSubmit}
+            controlId="exampleForm.SelectCustomSizeSm"
           >
-            <Dropdown.Item eventKey="Chemistry">Chemistry</Dropdown.Item>
-            <Dropdown.Item eventKey="Business">Business</Dropdown.Item>
-            <Dropdown.Item eventKey="Computer Science">
-              Computer Science
-            </Dropdown.Item>
-          </DropdownButton>
-        </Form.Group>
+            <DropdownButton
+              variant="outline-secondary"
+              className="pt-3"
+              onSelect={this.dropDownSubject}
+              value={this.state.searchType}
+              title={this.state.searchType}
+              id="dropdown-basic-button"
+            >
+              <Dropdown.Item eventKey="Chemistry">Chemistry</Dropdown.Item>
+              <Dropdown.Item eventKey="Business">Business</Dropdown.Item>
+              <Dropdown.Item eventKey="Computer Science">
+                Computer Science
+              </Dropdown.Item>
+            </DropdownButton>
+          </Form.Group>
+        </Col>
       );
     } else {
       search = (
-        <Form inline onSubmit={this.handleSubmit}>
-          <FormControl
-            type="text"
-            placeholder="Search"
-            className="mr-sm-2"
-            name="searchTerm"
-            value={this.state.searchTerm}
-            title={this.state.searchTerm}
-            onChange={this.handleChange}
-          />
-          <Button type="submit" variant="outline-success">
-            Search
-          </Button>
-        </Form>
+        <FormControl
+          type="text"
+          placeholder="Search"
+          className="mr-sm-2"
+          name="searchTerm"
+          value={this.state.searchTerm}
+          title={this.state.searchTerm}
+          onChange={this.handleChange}
+        />
       );
     }
 
@@ -159,7 +152,16 @@ class SearchBar extends Component {
             </Form.Group>
           </Form>
 
-          <Col>{search}</Col>
+          <Form
+            inline
+            onKeyPress={this.handleSubmit}
+            onSubmit={this.handleSubmit}
+          >
+            {search}
+            <Button type="submit" variant="outline-success">
+              Search
+            </Button>
+          </Form>
         </Row>
 
         <BookList books={this.state.books} />
